@@ -3,4 +3,5 @@ Diagnostics:
   UnusedIncludes: Strict
 
 CompileFlags:
-  CompilationDatabase: "build\\Debug"
+  Add: ['-std:c++latest']
+  CompilationDatabase: "build"
