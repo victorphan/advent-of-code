@@ -25,11 +25,9 @@ auto similarityScore(std::vector<int> const& list1, std::vector<int> const& list
     for (int e : list2) {
         list2_tally[e]++;
     }
-    int score = 0;
-    for (auto kv : list1_tally) {
-        score += kv.first * kv.second * list2_tally[kv.first];
-    }
-    return score;
+    return std::ranges::fold_left(list1_tally, 0, [&list2_tally](int x, auto const& e) -> int {
+        return x + (e.first * e.second * list2_tally[e.first]);
+    });
 }
 } // namespace
 
