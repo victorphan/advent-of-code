@@ -4,15 +4,32 @@
 #include <fstream>
 #include <iostream>
 #include <ranges>
+#include <unordered_map>
 #include <vector>
 
 namespace {
-constexpr auto totalDifferenceDistance(std::vector<int>& list1, std::vector<int>& list2) -> int {
+constexpr auto totalDifferenceDistance(std::vector<int> list1, std::vector<int> list2) -> int {
     assert(list1.size() == list2.size());
     std::ranges::sort(list1);
     std::ranges::sort(list2);
     return std::ranges::fold_left(std::ranges::zip_view(list1, list2), 0,
                                   [](int x, auto const& e) -> int { return x + abs(std::get<0>(e) - std::get<1>(e)); });
+}
+
+auto similarityScore(std::vector<int> const& list1, std::vector<int> const& list2) -> int {
+    std::unordered_map<int, int> list1_tally{};
+    std::unordered_map<int, int> list2_tally{};
+    for (int e : list1) {
+        list1_tally[e]++;
+    }
+    for (int e : list2) {
+        list2_tally[e]++;
+    }
+    int score = 0;
+    for (auto kv : list1_tally) {
+        score += kv.first * kv.second * list2_tally[kv.first];
+    }
+    return score;
 }
 } // namespace
 
@@ -40,7 +57,9 @@ auto main(int argc, char* argv[]) -> int {
     input_file.close();
 
     int total = totalDifferenceDistance(list1, list2);
+    int similarity = similarityScore(list1, list2);
     std::cout << "Sum of total differences: " << total << '\n';
+    std::cout << "Similarity score: " << similarity << '\n';
 
     return 0;
 }

@@ -2,9 +2,10 @@
 My solutions and devlog in C++ for Advent of Code 2024.
 
 CMake configuring and building in `/build` directory:
-`cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="cl.exe" ..`
-`cmake --build . -j6`
-
+```
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER="cl.exe" ..
+cmake --build . -j6
+```
 
 ## Day 1
 ### Part 1
@@ -14,4 +15,11 @@ Running looks like so:
 ```
 .\day1.exe ..\input\day1.txt
 Sum of total differences: 1646452
+```
+### Part 2
+I used an unordered_map for this part to keep a tally of both tables, then multiplied the number by frequency in both tables.
+```
+.\day1.exe ..\input\day1.txt
+Sum of total differences: 1646452
+Similarity score: 23609874
 ```
