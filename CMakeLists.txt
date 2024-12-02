@@ -6,3 +6,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(day1 src/day1.cpp)
+add_executable(day2 src/day2.cpp)
