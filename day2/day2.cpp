@@ -14,10 +14,10 @@ auto unsafeIndex(const std::vector<int>& level) -> std::optional<size_t> {
         return {};
     }
     bool is_inc = level[0] < level[1];
-    for (size_t i = 1; i < level.size(); i++) {
-        auto diff = is_inc ? level[i] - level[i - 1] : level[i - 1] - level[i];
+    for (size_t i = 0; i < level.size(); i++) {
+        auto diff = is_inc ? level[i + 1] - level[i] : level[i] - level[i + 1];
         if (diff <= 0 || 3 < diff) {
-            return i - 1;
+            return i;
         }
     }
     return {};
@@ -29,17 +29,14 @@ auto isDampSafe(const std::vector<int>& level) -> bool {
     if (!unsafe_idx.has_value()) {
         return true;
     }
-    int i = unsafe_idx.value();
+    size_t i = unsafe_idx.value();
     std::vector<int> level_remove_start{level};
     std::vector<int> level_remove_0{level};
     std::vector<int> level_remove_1{level};
     level_remove_start.erase(level_remove_start.begin());
     level_remove_0.erase(level_remove_0.begin() + i);
     level_remove_1.erase(level_remove_1.begin() + i + 1);
-    if (unsafeIndex(level_remove_0) && unsafeIndex(level_remove_1) && unsafeIndex(level_remove_start)) {
-        return false;
-    }
-    return true;
+    return !(unsafeIndex(level_remove_0) && unsafeIndex(level_remove_1) && unsafeIndex(level_remove_start));
 }
 
 } // namespace

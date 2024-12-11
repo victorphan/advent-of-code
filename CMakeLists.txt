@@ -12,7 +12,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     add_link_options(-static -static-libgcc -static-libstdc++)
     add_compile_options(-Wall -Wextra -Werror)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    add_compile_options(/W4 /WX)
+    add_compile_options(/W4 /WX /EHsc)
 endif()
 
 find_package(Catch2)
